@@ -3,8 +3,8 @@ def main():
     text = get_book_text(book_path)
     num_words = get_num_words(text)
     book_char = get_book_char(text)
+    char_report = get_char_report(book_char)
     print(f"{num_words} words found in the document")
-    print(f"Unique letters:{book_char}")
 
 
 def get_num_words(text):
@@ -20,10 +20,17 @@ def get_book_char(text):
     uniqueCharacters = {}
     for i in text:
         lower=i.lower()
-        if lower in uniqueCharacters:
-            uniqueCharacters[lower] +=1
-        else:
-            uniqueCharacters[lower] = 1
-    return (uniqueCharacters)
+        if lower.isalpha() == True :
+            if lower in uniqueCharacters:
+                uniqueCharacters[lower] +=1
+            else:
+                uniqueCharacters[lower] = 1
+    return uniqueCharacters
+
+def get_char_report(uniqueCharacters):
+    sorted_characters = sorted(uniqueCharacters.items(), key=lambda item: item[1], reverse=True)
+    for char in sorted_characters:
+        print(f"The {char[0]} character was found {char[1]} times")
+
 
 main()
